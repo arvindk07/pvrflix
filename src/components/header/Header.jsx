@@ -42,12 +42,36 @@ const Header = () => {
     } else {
       navigate("/explore/tv");
     }
-
     setMobileMenu(false);
   };
 
+  const controlNavbar = () => {
+    console.log(window.scrollY);
+    if (window.scrollY > 200) {
+      if (window.scrollY > lastScrollY && !mobileMenu) {
+        setShow("hidden");
+      } else {
+        setShow("show");
+      }
+    } else {
+      setShow("top");
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.addEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
+
   return (
-    <haeder className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
+    <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
         <div className="logo">
           <img src={logo} alt="" />
@@ -87,7 +111,7 @@ const Header = () => {
           </ContentWrapper>
         </div>
       )}
-    </haeder>
+    </header>
   );
 };
 
