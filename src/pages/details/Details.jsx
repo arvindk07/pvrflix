@@ -1,6 +1,7 @@
 import "./style.scss";
 import { useParams } from "react-router-dom";
 import Cast from "./cast/Cast";
+import VideosSection from "./videoSection/VideoSection";
 
 import useFetch from "../../hooks/useFetch";
 import DetailsBanner from "./detailsBanner/DetailsBanner";
@@ -15,6 +16,7 @@ const Details = () => {
     <div>
       <DetailsBanner video={data?.results?.[0]} crew={credits?.crew} />
       <Cast data={credits?.cast} loading={creditsLoding} />
+      <VideosSection data={data} loading={loading} />
     </div>
   );
 };
